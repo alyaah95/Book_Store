@@ -127,6 +127,7 @@ Bash
 
 pip install -r requirements.txt
 
+
 4. Configure Database:
    
 For PostgreSQL:
@@ -167,13 +168,16 @@ DATABASES = {
         'PORT': '',
     }
 }
+
 5. Run Migrations:
 
 Bash
 
 python manage.py makemigrations
 python manage.py migrate
+
 6. Create a Superuser (for Admin Panel access):
+   
 Bash
 
 python manage.py createsuperuser
@@ -184,6 +188,7 @@ Follow the prompts to set up username, email, and password.
 Bash
 
 python manage.py collectstatic
+
 8. Run the Development Server:
 
 Bash
