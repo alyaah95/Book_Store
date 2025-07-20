@@ -1,0 +1,110 @@
+{% extends 'main/base_layout.html' %}
+{% load static %}
+
+{% block title %}
+Books List
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-0">
+
+    <div class="hero-section position-relative">
+        <img src="{% static 'bookstore/books4.jpg' %}" alt="Books Collection" class="img-fluid w-100"
+            style="height: 300px; object-fit: cover;">
+        <div class="hero-overlay d-flex flex-column justify-content-center align-items-center">
+            <h1 class="display-4 text-white mb-4">Our Book Collection</h1>
+            <a href="{% url 'bookstore:create-book' %}" class="btn btn-light btn-lg rounded-pill px-4">
+                <i class="bi bi-plus-circle"></i> Add New Book
+            </a>
+        </div>
+    </div>
+
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead>
+                                    <tr class="bg-light">
+                                        <th class="py-3">#</th>
+                                        <th class="py-3">Title</th>
+                                        <th class="py-3">Description</th>
+                                        <th class="py-3 text-center">Rating</th>
+                                        <th class="py-3 text-center">Views</th>
+                                        <th class="py-3 text-end">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for book in books %}
+                                    <tr>
+                                        <td class="fw-bold">{{ book.id }}</td>
+                                        <td>
+                                            <a href="{% url 'bookstore:show-book' book.id %}"
+                                                class="text-decoration-none">
+                                                {{ book.title }}
+                                            </a>
+                                        </td>
+                                        <td class="text-muted">{{ book.desc|truncatechars:60 }}</td>
+                                        <td class="text-center">
+                                            <span
+                                                class="badge rounded-pill bg-{% if book.rate >= 4 %}success{% elif book.rate >= 2 %}warning{% else %}danger{% endif %}">
+                                                {{ book.rate }}/5
+                                            </span>
+                                        </td>
+                                        <td class="text-center">{{ book.views }}</td>
+                                        <td class="text-end">
+                                            <div class="d-flex justify-content-end gap-2">
+                                                <a href="{% url 'bookstore:edit-book' book.id %}"
+                                                    class="btn btn-sm btn-outline-primary rounded-circle" title="Edit">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <a href="{% url 'bookstore:delete-book' book.id %}"
+                                                    class="btn btn-sm btn-outline-danger rounded-circle" title="Delete">
+                                                    <i class="bi bi-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% empty %}
+                                    <tr>
+                                        <td colspan="6" class="text-center py-5">
+                                            <div class="d-flex flex-column align-items-center">
+                                                <i class="bi bi-book text-muted" style="font-size: 3rem;"></i>
+                                                <h5 class="mt-3 text-muted">No Books Available</h5>
+                                                <a href="{% url 'bookstore:create-book' %}"
+                                                    class="btn btn-primary mt-3">
+                                                    Add Your First Book
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hero-section {
+        position: relative;
+        margin-bottom: 2rem;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4);
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends 'main/base_layout.html' %}
+{% load static %}
+
+{% block title %}
+{{ book.title }} - Details
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <div class="book-hero mb-5 rounded-4 overflow-hidden shadow-lg position-relative" style="height: 400px;">
+        <img src="{% static 'bookstore/books2.jpg' %}" alt="{{ book.title }}"
+            class="img-fluid w-100 h-100 object-fit-cover">
+        <div class="book-hero-overlay d-flex flex-column justify-content-end p-5">
+            <h1 class="display-4 text-white mb-0">{{ book.title }}</h1>
+            <div class="d-flex align-items-center mt-2">
+                <div class="rating-badge me-3">
+                    <span class="badge bg-warning text-dark fs-5 px-3 py-2">
+                        <i class="bi bi-star-fill me-1"></i> {{ book.rate }}/5
+                    </span>
+                </div>
+                <span class="text-white-50 fs-5">
+                    <i class="bi bi-eye-fill me-1"></i> {{ book.views }} views
+                </span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-5">
+                    <div class="mb-4">
+                        <h2 class="text-primary mb-3">Book Details</h2>
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="badge bg-light text-dark fs-6 me-3">ID: {{ book.id }}</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h3 class="h5 text-muted mb-3">Description</h3>
+                        <p class="lead">{{ book.desc }}</p>
+                    </div>
+
+                <div class="mb-4">
+                    <h3 class="h5 text-muted mb-3">Categories</h3>
+                    <ul class="list-unstyled">
+                        {% for category in book.category.all %}
+                        <li class="badge bg-secondary me-1 mb-1">{{ category.name }}</li>
+                        {% empty %}
+                        <li class="text-muted">No categories assigned</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                    <div class="mb-4">
+                        <h3 class="h5 text-muted mb-3">Author</h3>
+                        <p class="lead">{{ book.author }}</p>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mt-5 pt-4 border-top">
+                        <a href="{% url 'bookstore:list-books' %}" class="btn btn-outline-primary px-4 py-2">
+                            <i class="bi bi-arrow-left-circle me-2"></i> Back to List
+                        </a>
+                        <div>
+                            <a href="{% url 'bookstore:edit-book' book.id %}" class="btn btn-warning px-4 py-2 me-2">
+                                <i class="bi bi-pencil-square me-2"></i> Edit
+                            </a>
+                            <a href="{% url 'bookstore:delete-book' book.id %}" class="btn btn-danger px-4 py-2">
+                                <i class="bi bi-trash3 me-2"></i> Delete
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .book-hero {
+        position: relative;
+    }
+
+    .book-hero-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%);
+    }
+
+    .object-fit-cover {
+        object-fit: cover;
+    }
+</style>
+{% endblock %}
