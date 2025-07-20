@@ -110,6 +110,7 @@ Bash
 
 git clone https://github.com/alyaah95/Book_Store.git
 cd Book_Store
+
 2. Create a Virtual Environment (Recommended):
 
 Bash
@@ -119,7 +120,9 @@ python -m venv venv
 .\venv\Scripts\activate
 # On macOS/Linux:
 source venv/bin/activate
+
 3. Install Dependencies:
+   
 Bash
 
 pip install -r requirements.txt
