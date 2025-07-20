@@ -1,6 +1,7 @@
 📚 Bookstore Management System
 
 📝 Project Description
+
 A robust and scalable web application built with Django, designed to manage a digital bookstore. This system provides comprehensive functionalities for both regular users to interact with book data and superusers to administer the entire book catalog, categories, and related information. It features secure user authentication, data validation, and efficient data management.
 
 ✨ Key Features
